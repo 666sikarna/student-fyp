@@ -1,6 +1,12 @@
+<?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+?>
+
 <?php include 'includes/connection.php'; ?>
-<?php include 'includes/header.php'; ?>
 <?php include 'includes/navbar.php'; ?>
+
+
 
 <?php
 if (isset($_POST['recover'])) {
@@ -68,24 +74,23 @@ if (isset($_POST['recover'])) {
 ?>
 
 
+<!DOCTYPE html>
+<html lang="en">
+<?php include 'includes/header.php'; ?>
 
-
-<div class="login-card">
-  <h1>Recover Password</h1><br>
-  <form action="" method="POST">
-    <input type="text" name="email" placeholder="Enter your Email" required="">
-    <input type="submit" name="recover" class="login login-submit" value="send">
-  </form>
-
-  <div class="login-help">
-    <a href="signup.php">Register</a> • <a href="login.php">Login</a>
+<body>
+  <div class="login-card">
+    <h1>Recover Password</h1><br>
+    <form action="" method="POST">
+      <input type="text" name="email" placeholder="Enter your Email" required="">
+      <input type="submit" name="recover" class="login login-submit" value="send">
+    </form>
+    <div class="login-help">
+      <a href="signup.php">Register</a> • <a href="login.php">Login</a>
+    </div>
   </div>
-</div>
-
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
-
-
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
 </body>
 
 </html>

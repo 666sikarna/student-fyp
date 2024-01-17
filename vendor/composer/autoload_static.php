@@ -10,6 +10,20 @@ class ComposerStaticInit788093c57f45cd4844d68de1212cb7c8
         'da253f61703e9c22a5a34f228526f05a' => __DIR__ . '/../..' . '/gump.class.php',
     );
 
+    public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
@@ -17,6 +31,8 @@ class ComposerStaticInit788093c57f45cd4844d68de1212cb7c8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit788093c57f45cd4844d68de1212cb7c8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit788093c57f45cd4844d68de1212cb7c8::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit788093c57f45cd4844d68de1212cb7c8::$classMap;
 
         }, null, ClassLoader::class);
