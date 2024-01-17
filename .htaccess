@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index$ /college/index.php [L]
+RewriteRule ^index/about$ /college/about.php [L]
+RewriteBase /college/
+RewriteRule ^dashboard/index$ /college/dashboard/index.php [L]
+RewriteRule ^dashboard/upload$ /college/dashboard/upload.php [L]
+RewriteRule ^dashboard/notes$ /college/dashboard/notes.php [L]
+RewriteRule ^dashboard/uploadnote$ /college/dashboard/uploadnote.php [L]
+RewriteRule ^dashboard/users$ /college/dashboard/users.php [L]
+RewriteRule ^dashboard/viewprofile$ /college/dashboard/viewprofile.php [L]

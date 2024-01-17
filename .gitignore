@@ -1,0 +1,27 @@
+# Ignore composer dependencies
+/vendor
+
+# Ignore local development environment files
+.env
+
+# Ignore log files
+/log/*.log
+
+# Ignore any generated files
+/build
+
+# Ignore IDE-specific files
+.idea
+.vscode
+
+# Ignore any cache directories
+/cache
+
+# Ignore any session files
+/sessions
+
+# Ignore any temporary files
+/tmp
+
+# Ignore database files
+/database/*.sqlite
