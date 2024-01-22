@@ -21,27 +21,26 @@ if (isset($_POST['signup'])) {
     $validated_data = $gump->run($_POST);
 
     if ($validated_data === false) {
-?>
-        <center>
-            <font color="red"> <?php echo $gump->get_readable_errors(true); ?> </font>
-        </center>
-<?php
+        echo '<div class="alert alert-danger text-center">' . $gump->get_readable_errors(true) . '</div>';
     } elseif ($_POST['password'] !== $_POST['repassword']) {
-        echo  "<center><font color='red'>Passwords do not match </font></center>";
+        echo '<div class="alert alert-danger text-center">Passwords do not match</div>';
     } else {
         $username = $validated_data['username'];
         $checkusername = "SELECT * FROM users WHERE username = '$username'";
         $run_check = mysqli_query($conn, $checkusername) or die(mysqli_error($conn));
         $countusername = mysqli_num_rows($run_check);
+
         if ($countusername > 0) {
-            echo  "<center><font color='red'>Username is already taken! try a different one</font></center>";
+            echo '<div class="alert alert-danger text-center">Username is already taken! Try a different one</div>';
         }
+
         $email = $validated_data['email'];
         $checkemail = "SELECT * FROM users WHERE email = '$email'";
         $run_check = mysqli_query($conn, $checkemail) or die(mysqli_error($conn));
         $countemail = mysqli_num_rows($run_check);
+
         if ($countemail > 0) {
-            echo  "<center><font color='red'>Email is already taken! try a different one</font></center>";
+            echo '<div class="alert alert-danger text-center">Email is already taken! Try a different one</div>';
         } else {
             $name = $validated_data['name'];
             $email = $validated_data['email'];
@@ -54,8 +53,7 @@ if (isset($_POST['signup'])) {
             $query = "INSERT INTO users(username,name,email,password,role,course,gender,joindate,token) VALUES ('$username' , '$name' , '$email', '$password' , '$role', '$course', '$gender' , '$joindate' , '' )";
             $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
             if (mysqli_affected_rows($conn) > 0) {
-                echo "<script>alert('SUCCESSFULLY REGISTERED');
-        window.location.href='login.php';</script>";
+                echo '<script>alert("Successfully Registered"); window.location.href="login.php";</script>';
             } else {
                 echo "<script>alert('Error Occured');</script>";
             }
@@ -73,76 +71,72 @@ if (isset($_POST['signup'])) {
 
 <body>
     <?php include 'includes/navbar.php'; ?>
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Sign Up</h2>
+                        <form id="contactform" method="POST" class="mt-4">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" name="name" class="form-control" id="name" placeholder="John Doe" value="<?= isset($_POST['signup']) ? $_POST['name'] : '' ?>" />
+                            </div>
 
-    <div class="container" style="padding: 0 120px;">
-        <div class="form">
-            <form id="contactform" method="POST">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input id="name" name="name" placeholder="First and last name" required="" tabindex="1" type="text" class="form-control" value="
-                    
-                    <?php if (isset($_POST['signup'])) {
-                        echo $_POST['name'];
-                    } ?>">
+                            <div class="mb-3">
+                                <label for=s"email" class="form-label">Email</label>
+                                <input id="email" name="email" placeholder="example@domain.com" required="" type="email" class="form-control" value=" <?= isset($_POST['signup']) ? $_POST['email'] : '' ?>" />
+                            </div>
 
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input id="username" name="username" placeholder="john_doe11" required="" type="text" class="form-control" value="<?= isset($_POST['signup']) ? $_POST['username'] : '' ?>" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" id="password" name="password" required="" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="repassword" class="form-label">Confirm your password</label>
+                                <input type="password" id="repassword" name="repassword" required="" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="gender" class="form-label">Gender</label>
+                                <select class="form-select" name="gender">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="role" class="form-label">I am a..</label>
+                                <select class="form-select" name="role">
+                                    <option value="teacher">Teacher</option>
+                                    <option value="student">Student</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="course" class="form-label">I teach/study..</label>
+                                <select class="form-select" name="course">
+                                    <option value="Computer Science">Computer Sc Engineering</option>
+                                    <option value="Electrical">Electrical Engineering</option>
+                                    <option value="Mechanical">Mechanical Engineering</option>
+                                </select>
+                            </div>
+
+                            <div class="d-flex gap-2 mt-4">
+                                <button class="btn btn-primary" name="signup" id="submit" tabindex="5" type="submit">Sign me up!</button>
+                                <a class="btn btn-secondary" href="login.php">
+                                    Login
+                                </a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
-                <div class="mb-3">
-                    <label for=s"email" class="form-label">Email</label>
-                    <input id="email" name="email" placeholder="example@domain.com" required="" type="email" class="form-control" value="
-                    
-                    <?php if (isset($_POST['signup'])) {
-                        echo $_POST['email'];
-                    } ?>
-                    ">
-                </div>
-
-                <div class="mb-3">
-                    <label for="username" class="form-label">Create a username</label>
-                    <input id="username" name="username" placeholder="username" required="" tabindex="2" type="text" class="form-control" value="
-                    <?php if (isset($_POST['signup'])) {
-                        echo $_POST['username'];
-                    } ?>
-                    ">
-                </div>
-
-                <div class="mb-3">
-                    <label for="password" class="form-label">Create a password</label>
-                    <input type="password" id="password" name="password" required="" class="form-control">
-                </div>
-
-                <div class="mb-3">
-                    <label for="repassword" class="form-label">Confirm your password</label>
-                    <input type="password" id="repassword" name="repassword" required="" class="form-control">
-                </div>
-
-                <div class="mb-3">
-                    <label for="gender" class="form-label">Gender</label>
-                    <select class="form-select" name="gender">
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label for="role" class="form-label">I am a..</label>
-                    <select class="form-select" name="role">
-                        <option value="teacher">Teacher</option>
-                        <option value="student">Student</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label for="course" class="form-label">I teach/study..</label>
-                    <select class="form-select" name="course">
-                        <option value="Computer Science">Computer Sc Engineering</option>
-                        <option value="Electrical">Electrical Engineering</option>
-                        <option value="Mechanical">Mechanical Engineering</option>
-                    </select>
-                </div>
-
-                <button class="btn btn-primary" name="signup" id="submit" tabindex="5" type="submit">Sign me up!</button>
-            </form>
+            </div>
         </div>
     </div>
 </body>

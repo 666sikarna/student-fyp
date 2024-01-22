@@ -1,5 +1,5 @@
 # Ignore composer dependencies
-/vendor
+vendor
 
 # Ignore local development environment files
 .env

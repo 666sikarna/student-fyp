@@ -8,8 +8,50 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
 }
 ?>
 
-<div id="wrapper">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
     <?php include 'includes/adminnav.php'; ?>
+    <div class="container">
+        <h1>Upload Note</h1>
+        <form action="submit" method="POST" enctype="multipart/form-data" style="
+        border: 1px solid black;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        ">
+            <div class="form-group">
+                <label for="title">Note Title</label>
+                <input type="text" name="title" class="form-control" placeholder="Php Tutorial File" value="<?php if (isset($_POST['upload'])) {
+                                                                                                                echo $file_title;
+                                                                                                            } ?>" required />
+            </div>
+            <div class="form-group">
+                <label for="description">Short Note Description</label>
+                <input type="text" name="description" class="form-control" placeholder="Php Tutorial File includes basic php programming ...." value="<?php if (isset($_POST['upload'])) {
+                                                                                                                                                            echo $file_description;
+                                                                                                                                                        } ?>" required />
+            </div>
+            <div class=" form-group">
+                <label for="post_image">Select File</label>
+                <input class="form-control" type="file" name="file">
+            </div>
+            <button type="submit" name="upload" class="btn btn-primary" value="Upload Note">Upload Note</button>
+        </form>
+    </div>
+</body>
+
+</html>
+
+<div id="wrapper">
     <div id="page-wrapper">
 
         <div class="container-fluid">
@@ -81,28 +123,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
                     }
                     ?>
 
-                    <form role="form" action="" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="post_title">Note Title</label>
-                            <input type="text" name="title" class="form-control" placeholder="Eg: Php Tutorial File" value="<?php if (isset($_POST['upload'])) {
-                                                                                                                                echo $file_title;
-                                                                                                                            } ?>" required="">
-                        </div>
-                        <div class="form-group">
-                            <label for="post_tags">Short Note Description</label>
-                            <input type="text" name="description" class="form-control" placeholder="Eg: Php Tutorial File includes basic php programming ...." value="<?php if (isset($_POST['upload'])) {
-                                                                                                                                                                            echo $file_description;
-                                                                                                                                                                        } ?>" required="" ">
-	</div>
-	 <div class=" form-group">
-                            <label for="post_image">Select File</label>
-                            <font color="brown"> (allowed file type: 'pdf','doc','ppt','txt','zip' | allowed maximum size: 30 mb ) </font>
-                            <input type="file" name="file">
-                        </div>
-                        <button type="submit" name="upload" class="btn btn-primary" value="Upload Note">Upload Note</button>
-                        <br>
-                        <br>
-                    </form>
+
                 </div>
             </div>
         </div>

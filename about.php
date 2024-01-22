@@ -1,107 +1,59 @@
 <?php include 'includes/header.php'; ?>
 <?php include 'includes/navbar.php'; ?>
 
-<link rel="stylesheet" type="text/css" href="styles.css" medxia="all" />
+<link rel="stylesheet" type="text/css" href="styles.css" media="all" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
 <script type="text/javascript" charset="utf-8">
     var $ = jQuery.noConflict();
-    $(window).load(function() {
+    $(document).ready(function() {
         $('.flexslider').flexslider({
             animation: "fade"
-        });
-
-        $(function() {
-            $('.show_menu').click(function() {
-                $('.menu').fadeIn();
-                $('.show_menu').fadeOut();
-                $('.hide_menu').fadeIn();
-            });
-            $('.hide_menu').click(function() {
-                $('.menu').fadeOut();
-                $('.show_menu').fadeIn();
-                $('.hide_menu').fadeOut();
-            });
         });
     });
 </script>
 
-<div>
-    <div class="slider_container">
-        <div class="flexslider">
-            <ul class="slides">
-                <li>
-                    <a href="#"><img src="images/slider/slide1.jpg" alt="" title="" /></a>
-                    <div class="flex-caption">
-                        <div class="caption_title_line">
-                            <h2>Easy Notes Management</h2>
-                            <p>Now easily manage all kind of notes by uploading them here.</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <a href="#"><img src="images/slider/slide2.jpg" alt="" title="" /></a>
-                    <div class="flex-caption">
-                        <div class="caption_title_line">
-                            <h2>Upload Various Files</h2>
-                            <p>User can upload various types of files like PDF, PPT, DOC etc..</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <a href="#"><img src="images/slider/slide3.jpg" alt="" title="" /></a>
-                    <div class="flex-caption">
-                        <div class="caption_title_line">
-                            <h2>Controled By Admin</h2>
-                            <p>Everying is managed and controled by administrator</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <a href="#"><img src="images/slider/slide4.jpg" alt="" title="" /></a>
-                    <div class="flex-caption">
-                        <div class="caption_title_line">
-                            <h2>Login For Both Teacher and Student</h2>
-                            <p>Both teacher and student can login and upload notes </p>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+<div class="container">
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item">
-                <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#555" dy=".3em">
-                        <img src="images/slider/slide2.jpg" alt="" title="" /></text>
-                </svg>
-            </div>
             <div class="carousel-item active">
-                <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#666"></rect><text x="50%" y="50%" fill="#444" dy=".3em">Second slide</text>
-                </svg>
+                <img src="images/slider/slide1.jpg" class="d-block w-100" alt="Slide 1">
+                <div class="">
+                    <h2 class="text-dark">Easy Notes Management</h2>
+                    <p>Now easily manage all kinds of notes by uploading them here.</p>
+                </div>
             </div>
             <div class="carousel-item">
-                <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Third slide" preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#555"></rect><text x="50%" y="50%" fill="#333" dy=".3em">Third slide</text>
-                </svg>
+                <img src="images/slider/slide2.jpg" class="d-block w-100" alt="Slide 2">
+                <div class="">
+                    <h2>Upload Various Files</h2>
+                    <p>Users can upload various types of files like PDF, PPT, DOC, etc.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/slider/slide3.jpg" class="d-block w-100" alt="Slide 3">
+                <div class="">
+                    <h2>Controlled By Admin</h2>
+                    <p>Everything is managed and controlled by the administrator.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/slider/slide4.jpg" class="d-block w-100" alt="Slide 4">
+                <div class="">
+                    <h2>Login For Both Teacher and Student</h2>
+                    <p>Both teachers and students can log in and upload notes.</p>
+                </div>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-
 
     <section class="container mt-5" style="padding: 10px 40px;">
         <div class="row">
@@ -136,5 +88,5 @@
 
             </div>
         </div>
+    </section>
 </div>
-</section>

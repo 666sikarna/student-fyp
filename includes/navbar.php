@@ -1,10 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 fixed">
-	<div class="container">
-		<a class="navbar-brand" href="index.php">College-Notes-Gallery</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	<div class="container lg:d-flex lg:justify-content-between">
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
+
+		<div>
+			<a class="navbar-brand" href="index.php">College Notes Gallery</a>
+		</div>
+
+		<div class="collapse navbar-collapse justify-content-center" id="navbarNav">
 			<ul class="navbar-nav">
 				<li class="nav-item">
 					<a class="nav-link" href="about.php">About Us</a>
