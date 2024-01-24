@@ -18,6 +18,7 @@ function getSubjects($conn)
     return $subjects;
 }
 
+
 if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
     header("location: index.php");
     exit();
@@ -45,9 +46,6 @@ if (isset($_POST['upload'])) {
     } else {
         $file_title = $validated_data['title'];
         $file_description = $validated_data['description'];
-        $subject_id = $validated_data['subject'];
-
-
         if (isset($_SESSION['id'])) {
             $file_uploader = $_SESSION['username'];
             $file_uploaded_to = $_SESSION['course'];
@@ -56,6 +54,7 @@ if (isset($_POST['upload'])) {
         $file = $_FILES['file']['name'];
         $ext = pathinfo($file, PATHINFO_EXTENSION);
         $validExt = array('pdf', 'txt', 'doc', 'docx', 'ppt', 'zip');
+
         if (empty($file)) {
             echo "<script>alert('Attach a file');</script>";
         } elseif ($_FILES['file']['size'] <= 0 || $_FILES['file']['size'] > 30720000) {
@@ -73,19 +72,18 @@ if (isset($_POST['upload'])) {
                     file_description, 
                     file_type, 
                     file_uploader, 
-                    file_uploaded_to,
-                    subject_id, 
+                    file_uploaded_to, 
                     file) 
                     VALUES (
-                        '$file_title', 
-                        '$file_description', 
-                        '$fileext', 
-                        '$file_uploader',
-                        '$file_uploaded_to',
-                        $subject_id,
-                        '$notefile')";
+                    '$file_title',
+                    '$file_description', 
+                    '$fileext',
+                    '$file_uploader',
+                    '$file_uploaded_to',
+                    '$notefile')";
 
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
                 if (mysqli_affected_rows($conn) > 0) {
                     echo "<script> alert('file uploaded successfully.It will be published after admin approves it');
                     window.location.href='notes.php';</script>";
@@ -123,17 +121,16 @@ if (isset($_POST['upload'])) {
 <body>
     <?php include 'includes/adminnav.php'; ?>
     <div class="container mt-4">
-        <h1>Upload Note</h1>
+        <h1>Upload Video</h1>
         <form action="" method="POST" enctype="multipart/form-data" class="form-wrapper">
             <div class="form-group">
-                <label for="title">Note Title</label>
+                <label for="title">Video Title</label>
                 <input type="text" name="title" class="form-control" placeholder="Php Tutorial File" value="<?= isset($_POST['upload']) ? $file_title : '' ?>" required />
             </div>
             <div class="form-group">
-                <label for="description">Short Note Description</label>
+                <label for="description">Short Video Description</label>
                 <input type="text" name="description" class="form-control" placeholder="Php Tutorial File includes basic php programming ...." value="<?= isset($_POST['upload']) ? $file_description : '' ?>" required />
             </div>
-
             <div>
                 <label for="" class="form-label">Subject</label>
                 <select class="form-select form-select" name="subject" required onchange="console.log(value)">
@@ -145,13 +142,16 @@ if (isset($_POST['upload'])) {
                     ?>
                 </select>
             </div>
-
-            <div class="form-group">
-                <label for="post_image">Select File</label>
-                <input class="form-control" type="file" name="file">
+            <div>
+                <label for="" class="form-label">URL</label>
+                <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="" />
+                <small id="helpId" class="form-text text-muted">URL to stream the content</small>
             </div>
+
+
+
             <div style="display: flex; justify-content: center;">
-                <button type="submit" name="upload" class="btn btn-primary">Upload Note</button>
+                <button type="submit" name="upload" class="btn btn-primary">Upload Video</button>
             </div>
         </form>
     </div>

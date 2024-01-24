@@ -115,7 +115,21 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-user"></i> <?php echo $_SESSION['name']; ?>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="./viewprofile.php?name=<?php echo $_SESSION['username']; ?>">
+                                <i class="fa-solid fa-eye"></i>
+                                View Profile
+                            </a>
+                        </li>
+                        <hr class="dropdown-divider">
+                        <li>
+                            <a class="dropdown-item" href="./userprofile.php?section=<?php echo $_SESSION['username']; ?>">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                Edit Profile
+                            </a>
+                        </li>
+                        <hr class="dropdown-divider">
                         <li>
                             <a class="dropdown-item align-bottom" href="./userprofile.php?section=<?php echo $_SESSION['username']; ?>">
                                 <i class="fa fa-fw fa-user"></i>

@@ -1,6 +1,8 @@
-<?php global $conn;
+<?php
+global $conn;
 include('includes/connection.php');
-include('includes/adminheader.php'); ?>
+include('includes/adminheader.php');
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,37 +19,32 @@ include('includes/adminheader.php'); ?>
         <div id="welcome-title">
             <h3>Welcome <span style="text-transform: capitalize;"><?php echo $_SESSION['name']; ?></span></h3>
         </div>
-        <div class="">
-            <?php if ($_SESSION['role'] == 'admin') {
-            ?>
-                <!-- ADMIN SESSION -->
+        <div>
+            <?php if ($_SESSION['role'] == 'admin') : ?>
                 <div class="w-100 mt-4">
                     <marquee style="width: 70%;">
                         <h3 style="color: green"> Notes uploaded by various users</h3>
                     </marquee>
 
-                    <!-- Table -->
                     <form action="submit" method="post">
                         <table class="table table-striped border">
                             <thead>
-                                <tr>
+                                <tr class="text-capitalize">
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>Type</th>
                                     <th>Uploaded on</th>
                                     <th>Uploaded by</th>
                                     <th>Status</th>
-                                    <th>View</th>
-                                    <th>Approve</th>
-                                    <th>Delete</th>
+                                    <th colspan="2">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 $query = "SELECT * FROM uploads ORDER BY file_uploaded_on DESC";
                                 $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
-                                if (mysqli_num_rows($run_query) > 0) {
-                                    while ($row = mysqli_fetch_array($run_query)) {
+                                if (mysqli_num_rows($run_query) > 0) :
+                                    while ($row = mysqli_fetch_array($run_query)) :
                                         $file_id = $row['file_id'];
                                         $file_name = $row['file_name'];
                                         $file_description = $row['file_description'];
@@ -56,29 +53,40 @@ include('includes/adminheader.php'); ?>
                                         $file_uploader = $row['file_uploader'];
                                         $file_status = $row['status'];
                                         $file = $row['file'];
-
-                                        echo "<tr>";
-                                        echo "<td>$file_name</td>";
-                                        echo "<td>$file_description</td>";
-                                        echo "<td>$file_type</td>";
-                                        echo "<td>$file_date</td>";
-                                        echo "<td><a href='viewprofile.php?name=$file_uploader' target='_blank'> $file_uploader </a></td>";
-                                        echo "<td>$file_status</td>";
-                                        echo "<td><a href='allfiles/$file' target='_blank' style='color:green'>View</a></td>";
-                                        echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to approve this note?')\"href='?approve=$file_id'><i class='fa fa-times' style='color: red;'></i>Approve</a></td>";
-                                        echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this post?')\" href='?del=$file_id'><i class='fa fa-times' style='color: red;'></i>delete</a></td>";
-                                        echo "</tr>";
-                                    }
-                                }
+                                ?>
+                                        <tr>
+                                            <td><?php echo $file_name; ?></td>
+                                            <td><?php echo $file_description; ?></td>
+                                            <td><?php echo $file_type; ?></td>
+                                            <td>
+                                                <?php echo date("F j, Y, g:i a", strtotime($file_date)); ?>
+                                            </td>
+                                            <td>
+                                                <a href='viewprofile.php?name=<?php echo $file_uploader; ?>' target='_blank'> <?php echo $file_uploader; ?> </a>
+                                            </td>
+                                            <td class="text-capitalize">
+                                                <?php echo $file_status; ?>
+                                            </td>
+                                            <td>
+                                                <a href='allfiles/<?php echo $file; ?>' target='_blank' class="btn btn-primary btn-sm">View</a>
+                                                <a class="btn btn-success btn-sm" onClick="javascript: return confirm('Are you sure you want to approve this note?')" href='?approve=<?php echo $file_id; ?>'>
+                                                    Approve
+                                                </a>
+                                                <a name="" id="" class="btn btn-danger btn-sm" role="button" onClick="javascript: return confirm('Are you sure you want to delete this post?')" href='?del=<?php echo $file_id; ?>'>
+                                                    Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                <?php
+                                    endwhile;
+                                endif;
                                 ?>
                             </tbody>
                         </table>
                     </form>
                 </div>
-            <?php
-            } else {
-            ?>
-                <div class=w-100">
+            <?php else : ?>
+                <div class="w-100">
                     <center>
                         <marquee style="width: 70%;">
                             <h3 style="color: green;"><?php echo $_SESSION['course']; ?> Engineering </h3>
@@ -104,8 +112,8 @@ include('includes/adminheader.php'); ?>
 
                                 $query = "SELECT * FROM uploads WHERE file_uploaded_to = '$currentusercourse' AND status = 'approved' ORDER BY file_uploaded_on DESC";
                                 $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
-                                if (mysqli_num_rows($run_query) > 0) {
-                                    while ($row = mysqli_fetch_array($run_query)) {
+                                if (mysqli_num_rows($run_query) > 0) :
+                                    while ($row = mysqli_fetch_array($run_query)) :
                                         $file_id = $row['file_id'];
                                         $file_name = $row['file_name'];
                                         $file_description = $row['file_description'];
@@ -113,29 +121,28 @@ include('includes/adminheader.php'); ?>
                                         $file_date = $row['file_uploaded_on'];
                                         $file = $row['file'];
                                         $file_uploader = $row['file_uploader'];
-
-                                        echo "<tr>";
-                                        echo "<td>$file_name</td>";
-                                        echo "<td>$file_description</td>";
-                                        echo "<td>$file_type</td>";
-                                        echo "<td><a href='viewprofile.php?name=$file_uploader' target='_blank'> $file_uploader </a></td>";
-                                        echo "<td>$file_date</td>";
-                                        // echo "<td><a href='allfiles/$file' target='_blank' style='color:green'>Save</a></td>";
-                                        echo "<td>
-                                            <button class='btn btn-success btn-sm'>
-                                            Save
-                                            </button></td>";
-
-                                        echo "</tr>";
-                                    }
-                                }
+                                ?>
+                                        <tr>
+                                            <td><?php echo $file_name; ?></td>
+                                            <td><?php echo $file_description; ?></td>
+                                            <td><?php echo $file_type; ?></td>
+                                            <td><a href='viewprofile.php?name=<?php echo $file_uploader; ?>' target='_blank'> <?php echo $file_uploader; ?> </a></td>
+                                            <td><?php echo date("F j, Y, g:i a", strtotime($file_date)); ?></td>
+                                            <td>
+                                                <button class='btn btn-success btn-sm'>
+                                                    Save
+                                                </button>
+                                            </td>
+                                        </tr>
+                                <?php
+                                    endwhile;
+                                endif;
                                 ?>
                             </tbody>
                         </table>
                     </form>
                 </div>
-            <?php
-            } ?>
+            <?php endif; ?>
         </div>
     </div>
 </body>

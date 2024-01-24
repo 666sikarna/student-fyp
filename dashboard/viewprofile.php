@@ -14,6 +14,7 @@ include('includes/adminheader.php');
                         $user = mysqli_real_escape_string($conn, $_GET['name']);
                         $query = "SELECT * FROM users WHERE username= '$user' ";
                         $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
                         if (mysqli_num_rows($run_query) > 0) {
                             while ($row = mysqli_fetch_array($run_query)) {
                                 $name = $row['name'];
@@ -36,42 +37,51 @@ include('includes/adminheader.php');
                             $joindate = "N/A";
                         }
                     ?>
-                        <div class="container">
+                        <div class="container mt-4">
                             <div class="row">
-                                <div class="col-xs-12 col-sm-6 col-md-6">
-                                    <div class="well well-sm">
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-4">
-                                                <img src="profilepics/<?php echo $image; ?>" size=300x500 alt="" class="img-rounded img-responsive" />
-                                            </div>
-                                            <div class="col-sm-6 col-md-8">
-                                                <h4>
-                                                    <?php echo $name; ?></h4>
-                                                <p>
-                                                    <font color="brown"> Department: </font> <?php echo $course; ?>
-                                                    <br />
-                                                    <font color="brown"> Role: </font> <?php echo $role; ?>
-                                                    <br />
-                                                    <font color="brown"> Gender: </font> <?php echo $gender; ?>
-                                                    <br />
-                                                    <font color="brown"> Email: </font> <?php echo $email; ?>
-                                                    <br />
-                                                    <font color="brown"> Join Date: </font> <?php echo $joindate; ?>
-                                                    <br />
-                                                    <font color="brown"> Bio: </font> <?php echo $bio; ?>
-                                                </p>
-                                            </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <img src="profilepics/<?php echo $image; ?>" alt="<?php echo $name; ?>" class="card-img-top img-fluid" />
+                                        <div class="card-body">
+                                            <h5 class="card-title"><?php echo $name; ?></h5>
+                                            <p class="card-text">
+                                                <strong>Department:</strong>
+                                                <span class="capitalize">
+                                                    <?php echo $course; ?>
+                                                </span>
+                                                <br />
+                                                <strong>Role:</strong>
+                                                <span class="capitalize">
+                                                    <?php echo $role; ?>
+                                                </span>
+                                                <br />
+                                                <strong>Gender:</strong> <?php echo $gender; ?><br />
+                                                <strong>Email:</strong> <?php echo $email; ?><br />
+                                                <strong>Join Date:</strong> <?php echo $joindate; ?><br />
+                                                <strong>Bio:</strong> <?php echo $bio; ?>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                </div>
-                <script src="js/jquery.js"></script>
-                <script src="js/bootstrap.min.js"></script>
-                </body>
-
-                </html>
-            <?php } else {
+                    <?php
+                    } else {
                         header("location:index.php");
-                    } ?>
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .capitalize {
+        text-transform: capitalize;
+    }
+</style>
+
+</body>
+
+</html>
