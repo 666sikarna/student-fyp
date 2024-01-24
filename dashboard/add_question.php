@@ -2,6 +2,11 @@
 include 'includes/connection.php';
 include 'includes/adminheader.php';
 
+if ($_SESSION['role'] != 'admin') {
+    echo "window.alert('Warning: You don't have access!')";
+    exit();
+}
+
 function getSubjects($conn)
 {
     $query = "SELECT subject_name, subject_id FROM subject"; // Change the table name accordingly
@@ -16,11 +21,6 @@ function getSubjects($conn)
     }
 
     return $subjects;
-}
-
-if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
-    header("location: index.php");
-    exit();
 }
 
 if (isset($_POST['upload'])) {
@@ -57,9 +57,9 @@ if (isset($_POST['upload'])) {
         $ext = pathinfo($file, PATHINFO_EXTENSION);
         $validExt = array('pdf', 'txt', 'doc', 'docx', 'ppt', 'zip');
         if (empty($file)) {
-            echo "<script>alert('Please attach a file');</script>";
-        } elseif ($_FILES['file']['size'] <= 0 || $_FILES['file']['size'] > 50000000) {
-            echo "<script>alert('Exceed max size');</script>";
+            echo "<script>alert('Attach a file');</script>";
+        } elseif ($_FILES['file']['size'] <= 0 || $_FILES['file']['size'] > 30720000) {
+            echo "<script>alert('file size is not proper');</script>";
         } elseif (!in_array($ext, $validExt)) {
             echo "<script>alert('Not a valid file');</script>";
         } else {
@@ -111,7 +111,7 @@ if (isset($_POST['upload'])) {
             padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 20px;
         }
 
         .submit-btn {
@@ -123,20 +123,20 @@ if (isset($_POST['upload'])) {
 <body>
     <?php include 'includes/adminnav.php'; ?>
     <div class="container mt-4">
-        <h1>Upload Note</h1>
+        <h1>Add Question</h1>
         <form action="" method="POST" enctype="multipart/form-data" class="form-wrapper">
             <div class="form-group">
-                <label for="title" class="form-label">Note Title</label>
+                <label for="title">Question Title</label>
                 <input type="text" name="title" class="form-control" placeholder="Php Tutorial File" value="<?= isset($_POST['upload']) ? $file_title : '' ?>" required />
             </div>
             <div class="form-group">
-                <label for="description" class="form-label">Short Note Description</label>
+                <label for="description">Short Question Description</label>
                 <input type="text" name="description" class="form-control" placeholder="Php Tutorial File includes basic php programming ...." value="<?= isset($_POST['upload']) ? $file_description : '' ?>" required />
             </div>
 
             <div>
-                <label for="subject" class="form-label">Subject</label>
-                <select class="form-select form-select" name="subject" required>
+                <label for="" class="form-label">Subject</label>
+                <select class="form-select form-select" name="subject" required onchange="console.log(value)">
                     <?php
                     $subjects = getSubjects($conn);
                     foreach ($subjects as $subject) {
@@ -147,9 +147,8 @@ if (isset($_POST['upload'])) {
             </div>
 
             <div class="form-group">
-                <label for="post_image" class="form-label">File</label>
-                <input id="file" class="form-control" type="file" name="file" accept=".txt,.pdf,.docx,.pptx,.ppt,.zip">
-                <small id="helpId" class="form-text text-muted">File accepted (.txt, .pdf, .docx, .pptx, .ppt, .zip). Max size: 50mb </small>
+                <label for="post_image">Select File</label>
+                <input class="form-control" type="file" name="file">
             </div>
             <div style="display: flex; justify-content: center;">
                 <button type="submit" name="upload" class="btn btn-primary">Upload Note</button>

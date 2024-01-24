@@ -120,17 +120,19 @@ if (isset($_SESSION['username'])) {
             <div class="row">
                 <div>
                     <h1 class="page-header">
-                        Welcome to your Profile
-                        <small><?php echo $_SESSION['name']; ?></small>
+                        Welcome to your profile
+                        <span><?php echo $_SESSION['name']; ?></span>
                     </h1>
 
                     <form role="form" action="" method="POST" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label for="post_image" class="form-label">Profile Image</label>
+                        <div class="mb-3 d-flex flex-column gap-2">
                             <img class="img-thumbnail" width="200" src="profilepics/<?php echo $picture; ?>" alt="Photo">
                             <input type="file" name="image" class="form-control">
                         </div>
-                        <button type="submit" name="uploadphoto" class="btn btn-primary">Upload Photo</button>
+
+                        <button type="submit" name="uploadphoto" class="btn btn-primary">
+                            Upload Photo
+                        </button>
                     </form>
 
                     <form role="form" action="" method="POST" enctype="multipart/form-data">
