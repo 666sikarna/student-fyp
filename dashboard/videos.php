@@ -1,7 +1,7 @@
 <?php include 'includes/connection.php'; ?>
 <?php include 'includes/adminheader.php';
 
-if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
+if (isset($_SESSION['role']) && $_SESSION['role'] !== 'admin') {
     header("location: index.php");
 }
 

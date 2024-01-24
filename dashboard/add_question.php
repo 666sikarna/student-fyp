@@ -40,26 +40,26 @@ if (isset($_POST['upload'])) {
 
     if ($validated_data === false) {
 
-        $file_title = $_POST['title'];
-        $file_description = $_POST['description'];
+        $question_title = $_POST['title'];
+        $question_description = $_POST['description'];
     } else {
-        $file_title = $validated_data['title'];
-        $file_description = $validated_data['description'];
+        $question_title = $validated_data['title'];
+        $question_description = $validated_data['description'];
         $subject_id = $validated_data['subject'];
 
 
         if (isset($_SESSION['id'])) {
-            $file_uploader = $_SESSION['username'];
-            $file_uploaded_to = $_SESSION['course'];
+            $uploaded_by = $_SESSION['id'];
         }
 
         $file = $_FILES['file']['name'];
         $ext = pathinfo($file, PATHINFO_EXTENSION);
         $validExt = array('pdf', 'txt', 'doc', 'docx', 'ppt', 'zip');
+
         if (empty($file)) {
-            echo "<script>alert('Attach a file');</script>";
-        } elseif ($_FILES['file']['size'] <= 0 || $_FILES['file']['size'] > 30720000) {
-            echo "<script>alert('file size is not proper');</script>";
+            echo "<script>alert('Please attach a file');</script>";
+        } elseif ($_FILES['file']['size'] <= 0 || $_FILES['file']['size'] > 50000000) {
+            echo "<script>alert('Exceed file limit');</script>";
         } elseif (!in_array($ext, $validExt)) {
             echo "<script>alert('Not a valid file');</script>";
         } else {
@@ -68,20 +68,18 @@ if (isset($_POST['upload'])) {
             $notefile = rand(1000, 1000000) . '.' . $fileext;
 
             if (move_uploaded_file($_FILES['file']['tmp_name'], $folder . $notefile)) {
-                $query = "INSERT INTO uploads(
-                    file_name, 
-                    file_description, 
+                $query = "INSERT INTO questions(
+                    question_name, 
+                    question_description, 
                     file_type, 
-                    file_uploader, 
-                    file_uploaded_to,
-                    subject_id, 
+                    uploaded_by, 
+                    subject_id,
                     file) 
                     VALUES (
-                        '$file_title', 
-                        '$file_description', 
+                        '$question_title', 
+                        '$question_description', 
                         '$fileext', 
-                        '$file_uploader',
-                        '$file_uploaded_to',
+                        '$uploaded_by',
                         $subject_id,
                         '$notefile')";
 

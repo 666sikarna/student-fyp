@@ -19,7 +19,7 @@ function getSubjects($conn)
     return $subjects;
 }
 
-if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
+if (isset($_SESSION['role']) && $_SESSION['role'] !== 'admin') {
     header("location: index.php");
     exit();
 }

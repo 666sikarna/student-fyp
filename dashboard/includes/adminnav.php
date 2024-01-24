@@ -27,19 +27,31 @@
                 <?php if ($_SESSION['role'] == 'admin') { ?>
                     <li class="dropdown nav-item">
                         <div class="nav-link dropdown-toggle" href="#" id="navbarDropdownNotes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-list-check"></i>
                             Action
                         </div>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownNotes">
                             <a class="dropdown-item d-flex align-items-center justify-content-between" href="./users.php">
                                 <div class="d-flex align-items-center">
-                                    <i class="fa-solid fa-eye me-2"></i>
-                                    View All Users
+                                    View Users
+                                </div>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between" href="./questions.php">
+                                <div class="d-flex align-items-center">
+                                    View Questions
                                 </div>
                             </a>
                             <a class="dropdown-item d-flex align-items-center justify-content-between" href="./add_question.php">
                                 <div class="d-flex align-items-center">
-                                    <i class="fa-solid fa-clipboard-question me-2"></i>
                                     Add Question
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="./videos.php">
+                                View Videos
+                            </a>
+                            <a class="dropdown-item" href="./uploadvideos.php">
+                                <div class="d-flex align-items-center">
+                                    Upload Video
                                 </div>
                             </a>
                         </ul>
@@ -56,20 +68,6 @@
                             </a>
                             <a class="dropdown-item" href="./uploadnote.php">
                                 Upload Note
-                            </a>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownNotes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-play"></i>
-                            Videos
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby=" navbarDropdownNotes">
-                            <a class="dropdown-item" href="./videos.php">
-                                View Videos
-                            </a>
-                            <a class="dropdown-item" href="./uploadvideos.php">
-                                Upload Videos
                             </a>
                         </ul>
                     </li>

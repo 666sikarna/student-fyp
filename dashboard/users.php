@@ -20,7 +20,7 @@ include "includes/adminheader.php";
     if ($_SESSION['role'] == 'admin') {
     ?>
         <div class="container mt-4 w-100">
-            <h1>All Users</h1>
+            <h3>All Users</h3>
             <table class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
@@ -57,7 +57,7 @@ include "includes/adminheader.php";
                             echo "<td>$user_email</td>";
                             echo "<td class='capitalize'>$user_role</td>";
                             echo "<td class='capitalize'>$user_course</td>";
-                            echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this user?')\" href='users.php?delete=$user_id'><i class='fa fa-times fa-lg'></i>delete</a></td>";
+                            echo "<td><a class='btn btn-danger btn-sm' onClick=\"javascript: return confirm('Are you sure you want to delete this user?')\" href='users.php?delete=$user_id'><i class='fa fa-trash'></i> Delete</a></td>";
                             echo "</tr>";
                         }
                     }
