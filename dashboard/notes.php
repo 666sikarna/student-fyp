@@ -29,11 +29,18 @@ if (isset($_GET['del'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>User Notes</title>
+
+    <style>
+        .capitalize {
+            text-transform: capitalize;
+        }
+    </style>
 </head>
 
 <body>
     <?php include 'includes/adminnav.php'; ?>
+
     <div class="container mt-4">
         <div class="d-flex justify-content-between">
             <h1>My Notes</h1>
@@ -43,7 +50,7 @@ if (isset($_GET['del'])) {
         </div>
         <div class="mt-4">
             <form action="" method="post">
-                <table class="table table-bordered table-striped table-hover">
+                <table class="table table-striped table-hover table-bordered">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -76,10 +83,9 @@ if (isset($_GET['del'])) {
                                 echo "<td>$file_description</td>";
                                 echo "<td>$file_type</td>";
                                 echo "<td>$file_date</td>";
-                                echo "<td>$file_status</td>";
+                                echo "<td class='capitalize'>$file_status</td>";
                                 echo "<td><a href='allfiles/$file' target='_blank' style='color:green'>View </a></td>";
-                                echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this post?')\" href='?del=$file_id'><i class='fa fa-times' style='color: red;'></i>delete</a></td>";
-
+                                echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this post?')\" href='?del=$file_id'><i class='fa fa-trash' style='color: red;'></i>Delete</a></td>";
                                 echo "</tr>";
                             }
                         } else {
@@ -95,8 +101,3 @@ if (isset($_GET['del'])) {
 </body>
 
 </html>
-
-<script src="js/jquery.js"></script>
-
-
-<script src="js/bootstrap.min.js"></script>
