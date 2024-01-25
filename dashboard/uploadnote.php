@@ -55,7 +55,8 @@ if (isset($_POST['upload'])) {
 
         $file = $_FILES['file']['name'];
         $ext = pathinfo($file, PATHINFO_EXTENSION);
-        $validExt = array('pdf', 'txt', 'doc', 'docx', 'ppt', 'zip');
+        $validExt = array('pdf', 'txt', 'doc', 'docx', 'ppt', 'pptx', 'zip');
+
         if (empty($file)) {
             echo "<script>alert('Please attach a file');</script>";
         } elseif ($_FILES['file']['size'] <= 0 || $_FILES['file']['size'] > 50000000) {
@@ -65,16 +66,18 @@ if (isset($_POST['upload'])) {
         } else {
             $folder  = 'allfiles/';
             $fileext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-            $notefile = rand(1000, 1000000) . '.' . $fileext;
+            $new_name = rand(1000, 1000000) . '.' . $fileext;
+            $original_name = strtolower(str_replace(' ', '_', $file_title)) . '.' . $fileext;
 
-            if (move_uploaded_file($_FILES['file']['tmp_name'], $folder . $notefile)) {
+            if (move_uploaded_file($_FILES['file']['tmp_name'], $folder . $new_name)) {
                 $query = "INSERT INTO uploads(
                     file_name, 
                     file_description, 
                     file_type, 
                     file_uploader, 
                     file_uploaded_to,
-                    subject_id, 
+                    subject_id,
+                    original_file_name,
                     file) 
                     VALUES (
                         '$file_title', 
@@ -83,6 +86,7 @@ if (isset($_POST['upload'])) {
                         '$file_uploader',
                         '$file_uploaded_to',
                         $subject_id,
+                        '$original_name',
                         '$notefile')";
 
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));

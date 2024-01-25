@@ -1,5 +1,6 @@
-<?php include 'includes/connection.php'; ?>
-<?php include 'includes/adminheader.php';
+<?php
+include 'includes/connection.php';
+include 'includes/adminheader.php';
 
 if (isset($_SESSION['role']) && $_SESSION['role'] !== 'admin') {
     header("location: index.php");
@@ -19,6 +20,32 @@ if (isset($_GET['del'])) {
         echo "<script>alert('Error occurred. Try again!');</script>";
     }
 }
+
+if (isset($_GET['approve'])) {
+    $video_id = mysqli_real_escape_string($conn, $_GET['approve']);
+
+    $del_query = "UPDATE videos SET status = 'approved' WHERE video_id = $video_id";
+
+    $run_del_query = mysqli_query($conn, $del_query) or die(mysqli_error($conn));
+
+    if (mysqli_affected_rows($conn) > 0) {
+        echo "<script>alert('Video has been approved');
+        window.location.href='videos.php';</script>";
+    } else {
+        echo "<script>alert('Error occurred. Try again!');</script>";
+    }
+}
+
+
+$videoUrl = isset($_GET['url']) ? $_GET['url'] : '';
+// Parse the URL to get the query string
+$queryString = parse_url($videoUrl, PHP_URL_QUERY) ?? "test";
+
+// Parse the query string to get the value of the 'v' parameter
+parse_str($queryString, $queryParams);
+$video_id = isset($queryParams['v']) ? $queryParams['v'] : '';
+
+$embed_url = "https://www.youtube.com/embed/$video_id";
 
 ?>
 
@@ -53,25 +80,24 @@ if (isset($_GET['del'])) {
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Description</th>
-                            <th>Link</th>
-                            <th>Status</th>
                             <th>Subject</th>
+                            <th>Description</th>
                             <th>View</th>
-                            <th>Delete</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         $currentuser = $_SESSION['id'];
-                        $query = "SELECT video_id, video_name, video_description, url, status, subject_name, u.username
-                        FROM videos
-                            INNER JOIN subject s ON videos.subject_id = s.subject_id
-                            INNER JOIN users u ON videos.file_uploader = u.id
-                            WHERE videos.file_uploader = '$currentuser'
-                            ORDER BY video_id DESC";
+                        $query = "SELECT video_id, video_name, video_description, url, status, subject_name, u.username as username
+                                FROM videos v
+                                    INNER JOIN subject s ON v.subject_id = s.subject_id
+                                    INNER JOIN users u ON v.file_uploader = u.id
+                                    WHERE status != 'pending'
+                                    ORDER BY video_id DESC";
 
                         $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
                         if (mysqli_num_rows($run_query) > 0) {
                             while ($row = mysqli_fetch_array($run_query)) {
                                 $video_id = $row['video_id'];
@@ -84,21 +110,20 @@ if (isset($_GET['del'])) {
                         ?>
                                 <tr>
                                     <td><?php echo $video_name; ?></td>
-                                    <td><?php echo $video_description; ?></td>
-                                    <td><?php echo $url; ?></td>
-                                    <td class="text-capitalize"><?php if ($status == 'pending') {
-                                                                    echo "Pending approval";
-                                                                }; ?></td>
                                     <td><?php echo $subject_name; ?></td>
+                                    <td><?php echo $video_description; ?></td>
                                     <td>
-                                        <a class="btn btn-primary btn-sm" href='allfiles/<?php echo $file; ?>' target='_blank' style='color:white;'>View</a>
+                                        <a class="btn btn-primary btn-sm" href='?url=<?php echo urlencode($url); ?>'>View</a>
                                     </td>
-                                    <td>
-                                        <a class="btn btn-danger btn-sm" onclick="confirm('Are you sure you want to delete this video?')" href='?del=<?php echo $video_id; ?>'>
-                                            <i class='fa fa-trash' style='color: white;'></i>
-                                            Delete
-                                        </a>
-                                    </td>
+                                    <?php if ($status !== 'approved') { ?>
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" href='?approve=<?php echo $video_id ?>'>Approve</a>
+                                        </td>
+                                    <?php } else { ?>
+                                        <td>
+                                            <a class="btn btn-danger btn-sm" href='?del=<?php echo $video_id ?>'>Delete</a>
+                                        </td>
+                                    <?php } ?>
                                 </tr>
                         <?php
                             }
@@ -108,7 +133,25 @@ if (isset($_GET['del'])) {
                 </table>
             </form>
         </div>
+
+        <iframe id="videoIframe" width="893" height="502" src="<?php echo $embed_url ?>" title="C++ in 100 Seconds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
     </div>
+
+
+    <script>
+        function reloadIframe(newUrl) {
+            var iframe = document.getElementById('videoIframe');
+            var newVideoId = getYouTubeVideoId(newUrl);
+            var newEmbedUrl = "https://www.youtube.com/embed/" + newVideoId;
+            iframe.src = newEmbedUrl;
+        }
+
+        function getYouTubeVideoId(url) {
+            var match = url.match(/[?&]v=([^&]*)/);
+            return match && match[1] ? match[1] : '';
+        }
+    </script>
 </body>
 
 </html>

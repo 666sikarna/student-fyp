@@ -66,6 +66,7 @@ if (isset($_POST['upload'])) {
             $folder  = 'allfiles/';
             $fileext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
             $notefile = rand(1000, 1000000) . '.' . $fileext;
+            $original_name = strtolower(str_replace(' ', '_', $file_title)) . '.' . $fileext;
 
             if (move_uploaded_file($_FILES['file']['tmp_name'], $folder . $notefile)) {
                 $query = "INSERT INTO questions(
@@ -74,6 +75,7 @@ if (isset($_POST['upload'])) {
                     file_type, 
                     uploaded_by, 
                     subject_id,
+                    original_file_name,
                     file) 
                     VALUES (
                         '$question_title', 
@@ -81,6 +83,7 @@ if (isset($_POST['upload'])) {
                         '$fileext', 
                         '$uploaded_by',
                         $subject_id,
+                        '$original_name',
                         '$notefile')";
 
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));

@@ -86,10 +86,10 @@ if (isset($_GET['del'])) {
                                     <td><?php echo $file_type; ?></td>
                                     <td><?php echo $file_date; ?></td>
                                     <td>
-                                        <a class='btn btn-sm btn-primary' href='#' onclick="displayPdf('allfiles/<?php echo $file; ?>', '<?php echo $file; ?>')" target='_blank'>
+                                        <a class='btn btn-sm btn-primary' href='#' onclick="displayPdf('allfiles/<?php echo $file; ?>', '<?php echo $file; ?>')">
                                             View
                                         </a>
-                                        <a class='btn btn-sm btn-primary' href="allfiles/<?php echo $file; ?>" target='_blank' download>
+                                        <a class='btn btn-sm btn-primary' href="download_file.php?type=question&id=<?php echo $question_id; ?>" download>
                                             Download
                                         </a>
                                         <a class="btn btn-sm btn-danger" onclick="confirm('Are you sure you want to delete this post?')" href="?del=<?php echo $question_id; ?>">
