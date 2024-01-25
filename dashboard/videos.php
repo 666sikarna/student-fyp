@@ -38,15 +38,10 @@ if (isset($_GET['approve'])) {
 
 
 $videoUrl = isset($_GET['url']) ? $_GET['url'] : '';
-// Parse the URL to get the query string
 $queryString = parse_url($videoUrl, PHP_URL_QUERY) ?? "test";
-
-// Parse the query string to get the value of the 'v' parameter
 parse_str($queryString, $queryParams);
 $video_id = isset($queryParams['v']) ? $queryParams['v'] : '';
-
 $embed_url = "https://www.youtube.com/embed/$video_id";
-
 ?>
 
 <!DOCTYPE html>

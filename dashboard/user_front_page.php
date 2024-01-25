@@ -78,7 +78,7 @@
                                 FROM videos v
                                     INNER JOIN subject s ON v.subject_id = s.subject_id
                                     INNER JOIN users u ON v.file_uploader = u.id
-                                    WHERE status !== 'pending'
+                                    WHERE status != 'pending'
                                     ORDER BY video_id DESC";
 
                 $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
@@ -125,8 +125,6 @@
             </thead>
             <tbody>
                 <?php
-                $currentusercourse = $_SESSION['course'];
-
                 $query = "SELECT * FROM questions q
                                          INNER JOIN subject s on s.subject_id = q.subject_id
                                          INNER JOIN users u on u.id = q.uploaded_by";
@@ -146,11 +144,11 @@
                         $uploaded_by = $row['uploaded_by'];
                 ?>
                         <tr>
-                            <td><?php echo $file_name; ?></td>
-                            <td><?php echo $file_description; ?></td>
+                            <td><?php echo $question_name; ?></td>
+                            <td><?php echo $question_description; ?></td>
                             <td><?php echo $file_type; ?></td>
-                            <td><a href='viewprofile.php?name=<?php echo $file_uploader; ?>' target='_blank'> <?php echo $file_uploader; ?> </a></td>
-                            <td><?php echo date("F j, Y, g:i a", strtotime($file_date)); ?></td>
+                            <td><a href='viewprofile.php?name=<?php echo $uploaded_by; ?>' target='_blank'> <?php echo $username; ?> </a></td>
+                            <td><?php echo date("F j, Y, g:i a", strtotime($upload_time)); ?></td>
                             <td>
                                 <a class='btn btn-sm btn-primary' href='#' onclick="displayPdf('allfiles/<?php echo $file; ?>', '<?php echo $file; ?>')" target='_blank'>
                                     View

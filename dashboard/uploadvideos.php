@@ -69,7 +69,7 @@ if (isset($_POST['upload'])) {
                     '$video_title',
                     '$video_description',
                     '$video_link',
-                    'pending',
+                    'approved',
                     '$user_id',
                     '$subject_id')";
 
