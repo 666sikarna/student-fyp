@@ -26,4 +26,4 @@ vendor
 # Ignore database files
 /database/*.sqlite
 
-/dashboard/allfiles
+/dashboard/allfiles/*

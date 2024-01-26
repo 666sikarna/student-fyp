@@ -14,7 +14,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
 if (isset($_GET['del'])) {
     $note_del = mysqli_real_escape_string($conn, $_GET['del']);
     $file_uploader = $_SESSION['username'];
-    $del_query = "DELETE FROM uploads WHERE file_id='$note_del' AND file_uploader = '$file_uploader' ";
+    $del_query = "DELETE FROM uploads WHERE file_id=$note_del;";
     $run_del_query = mysqli_query($conn, $del_query) or die(mysqli_error($conn));
     if (mysqli_affected_rows($conn) > 0) {
         echo "<script>alert('Note deleted successfully');
@@ -91,8 +91,8 @@ if (isset($_GET['del'])) {
                                     </td>
 
                                     <td>
-                                        <a onclick="confirm('Are you sure you want to delete this post?')" href='?del=$file_id'>
-                                            <i class='fa fa-trash' style='color: red;'></i>Delete</a>
+                                        <a class="btn btn-sm btn-danger" onclick="confirm('Are you sure you want to delete this post?')" href='?del=<?php echo $file_id; ?>'>
+                                            <i class='fa fa-trash' style="color: white;"></i> Delete</a>
                                     </td>
                                 </tr> <?php
                                     }
