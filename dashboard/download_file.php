@@ -23,26 +23,20 @@ if (isset($_GET['type']) && isset($_GET['id'])) {
     }
 
     if ($result->num_rows > 0) {
-        echo "<div>$fileType $fileId</div>";
 
         $row = $result->fetch_assoc();
         $originalFileName = $row['original_file_name'];
         $actualFilePath = $row['file'];
         $file_type = $row['file_type'];
-        $fileExtension = pathinfo($actualFilePath, PATHINFO_EXTENSION);
-
-        $file_name = "$originalFileName.$fileExtension";
-
-
+        $fileRoute = "./allfiles/$actualFilePath";
 
         $conn->close();
 
         $contentType = ($file_type == 'pdf') ? 'application/pdf' : 'application/octet-stream';
-        echo "<script>$file_name</script>";
-        // header("Content-Type: $contentType");
-        // header("Content-Disposition: attachment; filename=$file_name");
-        // readfile(__DIR__ . "/allfiles/$actualFilePath");
-        // exit;
+        header("Content-Type: $contentType");
+        header("Content-Disposition: attachment; filename=$originalFileName");
+        readfile($fileRoute);
+        exit;
     } else {
         echo "File not found";
     }

@@ -32,13 +32,9 @@ if (isset($_GET['del']) && isset($_GET['type'])) {
 }
 
 $videoUrl = isset($_GET['url']) ? $_GET['url'] : '';
-// Parse the URL to get the query string
 $queryString = parse_url($videoUrl, PHP_URL_QUERY) ?? "test";
-
-// Parse the query string to get the value of the 'v' parameter
 parse_str($queryString, $queryParams);
 $video_id = isset($queryParams['v']) ? $queryParams['v'] : '';
-
 $embed_url = "https://www.youtube.com/embed/$video_id";
 
 
@@ -170,7 +166,7 @@ $embed_url = "https://www.youtube.com/embed/$video_id";
     </form>
 
     <h3>Videos</h3>
-    <form action="submit" method="post">
+    <form method="post">
         <table class="table table-striped table-bordered">
             <thead>
                 <tr class="text-capitalize">
@@ -204,7 +200,7 @@ $embed_url = "https://www.youtube.com/embed/$video_id";
                             <td><?php echo $subject_name; ?></td>
                             <td><?php echo $url; ?></td>
                             <td>
-                                <a onclick="showIframe()" class="btn btn-primary btn-sm" href='?url=<?php echo urlencode($url); ?>'>View</a>
+                                <a class="btn btn-primary btn-sm" href='?url=<?php echo $url; ?>'>View</a>
                                 <a class="btn btn-danger btn-sm" role="button" onclick="confirm('Are you sure you want to delete this post?')" href='?type=videos&del=<?php echo $file_id; ?>'>
                                     Delete
                                 </a>
@@ -227,7 +223,6 @@ $embed_url = "https://www.youtube.com/embed/$video_id";
     function getYouTubeVideoId(url) {
         var match = url.match(/[?&]v=([^&]*)/);
         return match && match[1] ? match[1] : '';
-
     }
 
     function viewVideo(newUrl) {
