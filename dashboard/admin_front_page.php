@@ -173,7 +173,6 @@ $embed_url = "https://www.youtube.com/embed/$video_id";
                     <th>Name</th>
                     <th>Description</th>
                     <th>Subject</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -198,7 +197,6 @@ $embed_url = "https://www.youtube.com/embed/$video_id";
                             <td><?php echo $file_name; ?></td>
                             <td><?php echo $file_description; ?></td>
                             <td><?php echo $subject_name; ?></td>
-                            <td><?php echo $url; ?></td>
                             <td>
                                 <a class="btn btn-primary btn-sm" href='?url=<?php echo $url; ?>'>View</a>
                                 <a class="btn btn-danger btn-sm" role="button" onclick="confirm('Are you sure you want to delete this post?')" href='?type=videos&del=<?php echo $file_id; ?>'>
