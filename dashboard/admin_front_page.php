@@ -8,7 +8,12 @@ if (isset($_GET['approve'])) {
     $approval_query = "UPDATE uploads SET status = 'approved' WHERE file_id = $file_id_to_approve";
     $run_approval_query = mysqli_query($conn, $approval_query);
 
-    header("location: index.php");
+    if (mysqli_affected_rows($conn) > 0) {
+        echo "<script>alert('Video has been approved');
+        window.location.href='index.php';</script>";
+    } else {
+        echo "<script>alert('Error occurred. Try again!');</script>";
+    }
     exit();
 }
 
@@ -34,7 +39,7 @@ if (isset($_GET['del']) && isset($_GET['type'])) {
         } else {
             echo "<script>alert('Notes deleted successfully');";
         }
-        echo "<script>window.location.href='videos.php';</script>";
+        echo "<script>window.location.href='index.php';</script>";
     } else {
         echo "<script>alert('Error occurred. Try again!');</script>";
     }
