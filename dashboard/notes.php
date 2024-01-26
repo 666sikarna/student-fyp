@@ -9,6 +9,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
 ?>
 
 <?php
+
+
 if (isset($_GET['del'])) {
     $note_del = mysqli_real_escape_string($conn, $_GET['del']);
     $file_uploader = $_SESSION['username'];
@@ -77,27 +79,38 @@ if (isset($_GET['del'])) {
                                 $file_date = $row['file_uploaded_on'];
                                 $file_status = $row['status'];
                                 $file = $row['file'];
-
-                                echo "<tr>";
-                                echo "<td>$file_name</td>";
-                                echo "<td>$file_description</td>";
-                                echo "<td>$file_type</td>";
-                                echo "<td>$file_date</td>";
-                                echo "<td class='capitalize'>$file_status</td>";
-                                echo "<td><a href='allfiles/$file' target='_blank' style='color:green'>View </a></td>";
-                                echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this post?')\" href='?del=$file_id'><i class='fa fa-trash' style='color: red;'></i>Delete</a></td>";
-                                echo "</tr>";
-                            }
-                        } else {
-                            echo "<script>alert('Not notes yet! Start uploading now');
-                            window.location.href= 'uploadnote.php';</script>";
-                        }
                         ?>
+                                <tr>
+                                    <td><?php echo $file_name; ?></td>
+                                    <td><?php echo $file_description; ?></td>
+                                    <td><?php echo $file_type; ?></td>
+                                    <td><?php echo $file_date; ?></td>
+                                    <td class='capitalize'><?php echo $file_status; ?></td>
+                                    <td>
+                                        <a href='allfiles/<?php echo $file; ?>' target='_blank' class="btn btn-primary btn-sm">View</a>
+                                    </td>
+
+                                    <td>
+                                        <a onclick="confirm('Are you sure you want to delete this post?')" href='?del=$file_id'>
+                                            <i class='fa fa-trash' style='color: red;'></i>Delete</a>
+                                    </td>
+                                </tr> <?php
+                                    }
+                                } else {
+                                    echo "<script>alert('Not notes yet! Start uploading now');
+                            window.location.href= 'uploadnote.php';</script>";
+                                }
+                                        ?>
                     </tbody>
                 </table>
             </form>
         </div>
     </div>
+    <script>
+        function displayPdf(file_path, file_name) {
+            window.open('view_pdf.php?file_path=' + encodeURIComponent(file_path) + '&file_name=' + encodeURIComponent(file_name), '_blank');
+        }
+    </script>
 </body>
 
 </html>

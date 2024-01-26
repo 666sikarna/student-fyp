@@ -151,7 +151,7 @@ if (isset($_POST['upload'])) {
                 <input class="form-control" type="file" name="file">
             </div>
             <div style="display: flex; justify-content: center;">
-                <button type="submit" name="upload" class="btn btn-primary">Upload Note</button>
+                <button type="submit" name="upload" class="btn btn-primary">Upload Question</button>
             </div>
         </form>
     </div>

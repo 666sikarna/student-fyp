@@ -87,7 +87,7 @@ if (isset($_POST['upload'])) {
                         '$file_uploaded_to',
                         $subject_id,
                         '$original_name',
-                        '$notefile')";
+                        '$new_name')";
 
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
                 if (mysqli_affected_rows($conn) > 0) {

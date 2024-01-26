@@ -2,6 +2,15 @@
 global $conn;
 include('includes/connection.php');
 
+if (isset($_GET['approve'])) {
+    $file_id_to_approve = $_GET['approve'];
+
+    $approval_query = "UPDATE uploads SET status = 'approved' WHERE file_id = $file_id_to_approve";
+    $run_approval_query = mysqli_query($conn, $approval_query);
+
+    header("location: index.php");
+    exit();
+}
 
 if (isset($_GET['del']) && isset($_GET['type'])) {
     $id = mysqli_real_escape_string($conn, $_GET['del']);
@@ -84,7 +93,9 @@ $embed_url = "https://www.youtube.com/embed/$video_id";
                                 <?php echo $file_status; ?>
                             </td>
                             <td>
-                                <a href='allfiles/<?php echo $file; ?>' target='_blank' class="btn btn-primary btn-sm">View</a>
+                                <a class='btn btn-sm btn-primary' href='#' onclick="displayPdf('allfiles/<?php echo $file; ?>', '<?php echo $file; ?>')" target='_blank'>
+                                    View
+                                </a>
                                 <?php
                                 if ($file_status !== 'approved') {
                                 ?>
