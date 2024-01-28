@@ -16,28 +16,28 @@
 		<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="images/slider/slide1.jpg" class="d-block w-100" alt="Slide 1">
+					<img src="images/slider/slide5.jpg" class="d-block w-100" alt="Slide 1">
 					<div class="">
 						<h2 class="text-dark">Easy Notes Management</h2>
 						<p>Now easily manage all kinds of notes by uploading them here.</p>
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img src="images/slider/slide2.jpg" class="d-block w-100" alt="Slide 2">
+					<img src="images/slider/slide6.jpg" class="d-block w-100" alt="Slide 2">
 					<div class="">
 						<h2>Upload Various Files</h2>
 						<p>Users can upload various types of files like PDF, PPT, DOC, etc.</p>
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img src="images/slider/slide3.jpg" class="d-block w-100" alt="Slide 3">
+					<img src="images/slider/slide7.jpg" class="d-block w-100" alt="Slide 3">
 					<div class="">
 						<h2>Controlled By Admin</h2>
 						<p>Everything is managed and controlled by the administrator.</p>
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img src="images/slider/slide4.jpg" class="d-block w-100" alt="Slide 4">
+					<img src="images/slider/slide8.jpg" class="d-block w-100" alt="Slide 4">
 					<div class="">
 						<h2>Login For Both Teacher and Student</h2>
 						<p>Both teachers and students can log in and upload notes.</p>

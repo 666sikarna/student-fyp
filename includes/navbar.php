@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 fixed">
 	<div class="container lg:d-flex lg:justify-content-between">
 		<div>
-			<a class="navbar-brand" href="index.php">College Notes Gallery</a>
+			<a class="navbar-brand" href="index.php">Study Sidekick</a>
 		</div>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
 			<span class="navbar-toggler-icon"></span>

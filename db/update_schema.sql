@@ -1,21 +1,3 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               8.0.30 - MySQL Community Server - GPL
--- Server OS:                    Win64
--- HeidiSQL Version:             12.1.0.6537
--- --------------------------------------------------------
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-
--- Dumping database structure for notes
 CREATE DATABASE IF NOT EXISTS `notes`;
 USE `notes`;
 
@@ -32,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
   PRIMARY KEY (`question_id`),
   KEY `questions_subject_subject_id_fk` (`subject_id`),
   CONSTRAINT `questions_subject_subject_id_fk` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+);
 
 -- Dumping data for table notes.questions: ~2 rows (approximately)
 DELETE FROM `questions`;
@@ -46,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `subject` (
   `subject_name` varchar(255) DEFAULT NULL,
   `subject_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`subject_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+);
 
 -- Dumping data for table notes.subject: ~7 rows (approximately)
 DELETE FROM `subject`;
@@ -74,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `uploads` (
   `subject_id` int DEFAULT NULL,
   PRIMARY KEY (`file_id`),
   KEY `subject_id` (`subject_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8mb3;
+);
 
 -- Dumping data for table notes.uploads: ~4 rows (approximately)
 DELETE FROM `uploads`;
@@ -99,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `image` varchar(225) NOT NULL DEFAULT 'profile.jpg',
   `joindate` varchar(225) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb3;
+);
 
 -- Dumping data for table notes.users: ~11 rows (approximately)
 DELETE FROM `users`;
@@ -124,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `user_note_list` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `note_id` (`note_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ;
 
 -- Dumping data for table notes.user_note_list: ~0 rows (approximately)
 DELETE FROM `user_note_list`;
@@ -141,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `videos` (
   PRIMARY KEY (`video_id`),
   KEY `videos_subject_subject_id_fk` (`subject_id`),
   CONSTRAINT `videos_subject_subject_id_fk` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+);
 
 -- Dumping data for table notes.videos: ~2 rows (approximately)
 DELETE FROM `videos`;

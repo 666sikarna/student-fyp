@@ -76,7 +76,7 @@ if (isset($_POST['upload'])) {
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
         if (mysqli_affected_rows($conn) > 0) {
-            echo "<script> alert('file uploaded successfully.It will be published after admin approves it');
+            echo "<script> alert('Video has been upload');
                     window.location.href='notes.php';</script>";
         } else {
             "<script> alert('Error while uploading..try again');</script>";
