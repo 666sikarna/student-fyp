@@ -9,7 +9,7 @@ if (isset($_GET['approve'])) {
     $run_approval_query = mysqli_query($conn, $approval_query);
 
     if (mysqli_affected_rows($conn) > 0) {
-        echo "<script>alert('Video has been approved');
+        echo "<script>alert('Note has been approved');
         window.location.href='index.php';</script>";
     } else {
         echo "<script>alert('Error occurred. Try again!');</script>";
