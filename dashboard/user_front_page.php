@@ -14,6 +14,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Subject</th>
                     <th>Type</th>
                     <th>Uploaded by</th>
                     <th>Uploaded on</th>
@@ -24,7 +25,10 @@
                 <?php
                 $currentusercourse = $_SESSION['course'];
 
-                $query = "SELECT * FROM uploads WHERE file_uploaded_to = '$currentusercourse' AND status = 'approved' ORDER BY file_uploaded_on DESC";
+                $query = "SELECT * FROM uploads u
+                INNER JOIN subject s ON u.subject_id = s.subject_id
+                WHERE file_uploaded_to = '$currentusercourse' AND status = 'approved' ORDER BY file_uploaded_on DESC";
+
                 $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
                 if (mysqli_num_rows($run_query) > 0) :
                     while ($row = mysqli_fetch_array($run_query)) :
@@ -35,10 +39,12 @@
                         $file_date = $row['file_uploaded_on'];
                         $file = $row['file'];
                         $file_uploader = $row['file_uploader'];
+                        $subject_name = $row['subject_name'];
                 ?>
                         <tr>
                             <td><?php echo $file_name; ?></td>
                             <td><?php echo $file_description; ?></td>
+                            <td><?php echo $subject_name; ?></td>
                             <td><?php echo $file_type; ?></td>
                             <td><a href='viewprofile.php?name=<?php echo $file_uploader; ?>' target='_blank'> <?php echo $file_uploader; ?> </a></td>
                             <td><?php echo date("F j, Y, g:i a", strtotime($file_date)); ?></td>
@@ -59,56 +65,6 @@
         </table>
     </form>
 
-    <!-- Video table -->
-    <h4>Videos</h4>
-    <form class="mt-2" method="post">
-        <table class="table table-bordered table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Subject</th>
-                    <th>Description</th>
-                    <th>View</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $currentuser = $_SESSION['id'];
-                $query = "SELECT video_id, video_name, video_description, url, status, subject_name, u.username as username
-                                FROM videos v
-                                    INNER JOIN subject s ON v.subject_id = s.subject_id
-                                    INNER JOIN users u ON v.file_uploader = u.id
-                                    WHERE status != 'pending'
-                                    ORDER BY video_id DESC";
-
-                $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
-
-                if (mysqli_num_rows($run_query) > 0) {
-                    while ($row = mysqli_fetch_array($run_query)) {
-                        $video_id = $row['video_id'];
-                        $video_name = $row['video_name'];
-                        $video_description = $row['video_description'];
-                        $url = $row['url'];
-                        $status = $row['status'];
-                        $subject_name = $row['subject_name'];
-                        $uploaded_by = $row['username'];
-                ?>
-                        <tr>
-                            <td><?php echo $video_name; ?></td>
-                            <td><?php echo $subject_name; ?></td>
-                            <td><?php echo $video_description; ?></td>
-                            <td>
-                                <a class="btn btn-primary btn-sm" href='view_video.php?url=<?php echo urlencode($url); ?>'>View</a>
-                            </td>
-                        </tr>
-                <?php
-                    }
-                }
-                ?>
-            </tbody>
-        </table>
-    </form>
-
     <!-- Question -->
     <h4>Questions</h4>
     <form class="mt-2" method="post">
@@ -117,6 +73,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Subject</th>
                     <th>Type</th>
                     <th>Uploaded by</th>
                     <th>Uploaded on</th>
@@ -146,6 +103,7 @@
                         <tr>
                             <td><?php echo $question_name; ?></td>
                             <td><?php echo $question_description; ?></td>
+                            <td><?php echo $subject_name; ?></td>
                             <td><?php echo $file_type; ?></td>
                             <td><a href='viewprofile.php?name=<?php echo $uploaded_by; ?>' target='_blank'> <?php echo $username; ?> </a></td>
                             <td><?php echo date("F j, Y, g:i a", strtotime($upload_time)); ?></td>
@@ -161,6 +119,56 @@
                 <?php
                     endwhile;
                 endif;
+                ?>
+            </tbody>
+        </table>
+    </form>
+
+    <!-- Video table -->
+    <h4>Videos</h4>
+    <form class="mt-2" method="post">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Subject</th>
+                    <th>View</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $currentuser = $_SESSION['id'];
+                $query = "SELECT video_id, video_name, video_description, url, status, subject_name, u.username as username
+                                FROM videos v
+                                    INNER JOIN subject s ON v.subject_id = s.subject_id
+                                    INNER JOIN users u ON v.file_uploader = u.id
+                                    WHERE status != 'pending'
+                                    ORDER BY video_id DESC";
+
+                $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+                if (mysqli_num_rows($run_query) > 0) {
+                    while ($row = mysqli_fetch_array($run_query)) {
+                        $video_id = $row['video_id'];
+                        $video_name = $row['video_name'];
+                        $video_description = $row['video_description'];
+                        $url = $row['url'];
+                        $status = $row['status'];
+                        $subject_name = $row['subject_name'];
+                        $uploaded_by = $row['username'];
+                ?>
+                        <tr>
+                            <td><?php echo $video_name; ?></td>
+                            <td><?php echo $video_description; ?></td>
+                            <td><?php echo $subject_name; ?></td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" href='view_video.php?url=<?php echo urlencode($url); ?>'>View</a>
+                            </td>
+                        </tr>
+                <?php
+                    }
+                }
                 ?>
             </tbody>
         </table>

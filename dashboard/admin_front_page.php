@@ -55,23 +55,26 @@ $embed_url = "https://www.youtube.com/embed/$video_id";
 ?>
 
 <div class="w-100 mt-4">
-    <h3>Note</h3>
+    <h3>Notes</h3>
     <form action="submit" method="post">
         <table class="table table-striped table-bordered">
             <thead>
                 <tr class="text-capitalize">
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Subject</th>
                     <th>Type</th>
-                    <th>Uploaded on</th>
                     <th>Uploaded by</th>
+                    <th>Uploaded on</th>
                     <th>Status</th>
                     <th colspan="2">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $query = "SELECT * FROM uploads ORDER BY file_uploaded_on DESC";
+                $query = "SELECT * FROM uploads u
+                INNER JOIN subject s ON s.subject_id = u.subject_id
+                ORDER BY file_uploaded_on DESC";
                 $run_query = mysqli_query($conn, $query) or die(mysqli_error($conn));
                 if (mysqli_num_rows($run_query) > 0) :
                     while ($row = mysqli_fetch_array($run_query)) :
@@ -83,16 +86,18 @@ $embed_url = "https://www.youtube.com/embed/$video_id";
                         $file_uploader = $row['file_uploader'];
                         $file_status = $row['status'];
                         $file = $row['file'];
+                        $subject_name = $row['subject_name'];
                 ?>
                         <tr>
                             <td><?php echo $file_name; ?></td>
                             <td><?php echo $file_description; ?></td>
+                            <td><?php echo $subject_name; ?></td>
                             <td><?php echo $file_type; ?></td>
                             <td>
-                                <?php echo date("F j, Y, g:i a", strtotime($file_date)); ?>
+                                <a href='viewprofile.php?name=<?php echo $file_uploader; ?>' target='_blank' class="text-capitalize"> <?php echo $file_uploader; ?> </a>
                             </td>
                             <td>
-                                <a href='viewprofile.php?name=<?php echo $file_uploader; ?>' target='_blank' class="text-capitalize"> <?php echo $file_uploader; ?> </a>
+                                <?php echo date("F j, Y, g:i a", strtotime($file_date)); ?>
                             </td>
                             <td class="text-capitalize">
                                 <?php echo $file_status; ?>
@@ -128,6 +133,7 @@ $embed_url = "https://www.youtube.com/embed/$video_id";
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Subject</th>
                     <th>Type</th>
                     <th>Uploaded by</th>
                     <th>Uploaded on</th>
@@ -158,6 +164,7 @@ $embed_url = "https://www.youtube.com/embed/$video_id";
                         <tr>
                             <td><?php echo $question_name; ?></td>
                             <td><?php echo $question_description; ?></td>
+                            <td><?php echo $subject_name; ?></td>
                             <td><?php echo $file_type; ?></td>
                             <td><a href='viewprofile.php?name=<?php echo $uploaded_by; ?>' target='_blank'> <?php echo $username; ?> </a></td>
                             <td><?php echo date("F j, Y, g:i a", strtotime($upload_time)); ?></td>
