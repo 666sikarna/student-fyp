@@ -113,7 +113,7 @@ if (isset($_POST['signup'])) {
                             <div class="mb-3">
                                 <label for="role" class="form-label">I am a..</label>
                                 <select class="form-select" name="role">
-                                    <option value="teacher">Teacher</option>
+
                                     <option value="student">Student</option>
                                 </select>
                             </div>
@@ -121,9 +121,9 @@ if (isset($_POST['signup'])) {
                             <div class="mb-3">
                                 <label for="course" class="form-label">I teach/study..</label>
                                 <select class="form-select" name="course">
-                                    <option value="Computer Science">Computer Sc Engineering</option>
-                                    <option value="Electrical">Electrical Engineering</option>
-                                    <option value="Mechanical">Mechanical Engineering</option>
+                                    <option value="Info Tech">Information Technology</option>
+                                    <option value="Multimedia">Multimedia</option>
+                                    <option value="Animation">Animation</option>
                                 </select>
                             </div>
 

@@ -40,8 +40,8 @@
             <div class="carousel-item">
                 <img src="images/slider/slide8.jpg" class="d-block w-100" alt="Slide 4">
                 <div class="">
-                    <h2>Login For Both Teacher and Student</h2>
-                    <p>Both teachers and students can log in and upload notes.</p>
+                    <h2>Login For Student</h2>
+                    <p>Students can log in and upload notes.</p>
                 </div>
             </div>
         </div>
