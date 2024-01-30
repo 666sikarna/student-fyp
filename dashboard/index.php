@@ -2,7 +2,7 @@
 global $conn;
 include('includes/connection.php');
 include('includes/adminheader.php');
-
+//// Include the connection file to establish a database connection
 ?>
 
 <!DOCTYPE html>
