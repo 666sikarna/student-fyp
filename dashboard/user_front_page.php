@@ -1,8 +1,9 @@
 <div class="w-100">
     <center>
         <marquee style="width: 70%;">
-            <h3 style="color: green;"><?php echo $_SESSION['course']; ?> Engineering </h3>
-            <h3 style="color: brown;"> notes uploaded by various users</h3>
+            <h3 style="color: green;"> Study Tips ! </h3>
+            <h3 style="color: brown;"> 1. Set clear study goals</h3>
+            <h3 style="color: brown;"> 2. Utilise active learning strategies</h3>
         </marquee>
     </center>
 
